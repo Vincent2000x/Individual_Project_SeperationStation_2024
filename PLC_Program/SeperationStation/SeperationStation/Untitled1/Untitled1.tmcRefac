@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Refactors>
+  <Renames>
+    <RenamedType>
+      <Type guid="8528f7c6-565c-49a0-bd8a-e255f0723f91">FBD_SYSTEM</Type>
+      <From>FBD_System</From>
+      <To>Motor_Control</To>
+    </RenamedType>
+  </Renames>
+</Refactors>

@@ -1,0 +1,34 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <POU Name="ScaleOutput" Id="{3c790d3f-23db-4dd3-a7f4-8c78888ec7ed}" SpecialFunc="None">
+    <Declaration><![CDATA[(*Vincent Molenkamp : 519540*)
+FUNCTION ScaleOutput : DINT
+(*Om de output waarde te scalen naar Van DINT naar WORD*)
+VAR_INPUT	
+	Input: INT;	  (*waarde die gescaled moet worden*)
+	Minimum: INT; (*De minimum input waarde*)
+	Maximum: INT; (*De maximum input waarde*)
+END_VAR
+VAR
+	X: DINT;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[(* To set minimum and maximum values for the input *)
+IF Input < Minimum THEN
+	Input := Minimum;
+ELSIF Input > Maximum THEN
+	Input := Maximum;
+END_IF
+
+(* Calculating the output value does not work with negative minimum *) 
+ScaleOutput := ((Input-Minimum)*65535)/(Maximum-Minimum);	
+]]></ST>
+    </Implementation>
+    <LineIds Name="ScaleOutput">
+      <LineId Id="8" Count="7" />
+      <LineId Id="7" Count="0" />
+      <LineId Id="23" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

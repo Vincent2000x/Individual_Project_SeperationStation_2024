@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <POU Name="Reset" Id="{508545e5-b58e-408c-98c8-3800502ff6ab}" SpecialFunc="None">
+    <Declaration><![CDATA[PROGRAM Reset
+(*What happens when reset is pressed*)
+VAR
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[IF GVL.Reset_Count THEN
+	GVL.ProductA_Amount := 0;
+	GVL.ProductB_Amount := 0;
+END_IF]]></ST>
+    </Implementation>
+    <LineIds Name="Reset">
+      <LineId Id="5" Count="0" />
+      <LineId Id="8" Count="0" />
+      <LineId Id="10" Count="0" />
+      <LineId Id="9" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

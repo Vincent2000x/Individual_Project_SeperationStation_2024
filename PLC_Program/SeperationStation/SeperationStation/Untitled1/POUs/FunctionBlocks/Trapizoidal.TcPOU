@@ -1,0 +1,45 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <POU Name="Trapizoidal" Id="{f5acfbcf-dfac-4511-918d-c8d8d1470fa3}" SpecialFunc="None">
+    <Declaration><![CDATA[(*Vincent Molenkamp : 519540*)
+FUNCTION_BLOCK Trapizoidal
+(*Function Block To slowly increase speed*)
+VAR_INPUT
+	IN: INT;
+	StepMaximum: INT;
+	TsTrigger: BOOL;
+END_VAR
+
+VAR_OUTPUT	
+	OUT: INT;
+END_VAR
+
+VAR
+	Y_1: INT;
+	Y_0: INT;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[IF TsTrigger = 1 THEN
+Y_1 := Y_0; (*De waarde van de vorige cicle in Y_1 Zetten*)
+
+(*Wanneer de waarde van de voorige cicle lager is als de waarde van de nieuwe dan + 1 tot hij gelijk is*)
+IF Y_1 < IN THEN
+	Y_0 := 	Y_1 + StepMaximum;
+END_IF
+
+(*Wanneer de waarde van de voorige cicle Hoger is als de waarde van de nieuwe dan - 1 tot hij gelijk is*)
+IF Y_1 > IN THEN
+	Y_0 := Y_1 - StepMaximum;
+END_IF
+
+(*De output waarde meegeven*)
+OUT := Y_0;
+END_IF]]></ST>
+    </Implementation>
+    <LineIds Name="Trapizoidal">
+      <LineId Id="11" Count="14" />
+      <LineId Id="9" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

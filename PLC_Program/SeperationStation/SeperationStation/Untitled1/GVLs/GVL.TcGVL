@@ -1,0 +1,40 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <GVL Name="GVL" Id="{39cb06bd-2d6f-4fe3-8f29-e41fb1165121}">
+    <Declaration><![CDATA[{attribute 'qualified_only'}
+VAR_GLOBAL
+	(*Digital Input*)
+	SART_STOP AT %IX0.0 : BOOL;		 	 (*To Start And To Stop System*)
+	EM_STOP AT %IX0.1 : BOOL; 			 (*To Turn Power Of The System*)
+	Conveyor2_Free AT %IX0.2 : BOOL;	 (*When The Conveyor2 is free*)
+	Reset_Count AT %IX0.3 : BOOL;  		 (*Reset the Product counter value*)
+	
+	(*Analog Inputs*) (*Hiervoor vanwege gemak gebruik gemaakt van 0,1,3 normaal zou dit hogere waarde zijn wat uitgelezen wordt*)
+	SensorInput AT %IW100 : INT;		 (*Noting=0 Red=1 Blue=2 Collor detection sensor*)
+
+	(*Digital Output*)
+	Motor1_State AT %QX10.0 : BOOL; 	 (*To indicate if the morot is on or of (1=on 0=of)*)
+	Motor2_State AT %QX10.1 : BOOL;		 (*To indicate if the morot is on or of (1=on 0=of)*)
+	
+	(*Analog Output*)
+	Motor1_Speed AT %QW200 : DINT;		 (*The Motor 1 Speed Output 0-65535*)
+	Motor2_Speed AT %QW201 : DINT;		 (*The Motor 2 Speed Output 0-65535*)
+	
+	(*System Variables*)
+	SystemState : INT; 					 (*System State 0=OFF 1=ON 2=EM_STOP*)	
+	System_Start_Stop : BOOL;			 (*GVL Start/Stop variable 0=stop 1=start*)
+	ProductA_Amount : INT;				 (*Amount of products counted*)
+	ProductB_Amount : INT;				 (*Amount of products counted*)
+	
+	(*Motor Variables*)
+	SetMotor1_Speed : INT;				 (*Set The Motor Speed in the program from hmi km/h*)
+	SetMotor2_Speed : INT; 				 (*Set The Motor Speed in the program from hmi km/h*)
+	CurrentMotor1_Speed : INT;			 (*The current speed after Trapizoidal function*)
+	CurrentMotor2_Speed : INT;			 (*The current speed after Trapizoidal function*)
+	Motor2_Direction : BOOL;			 (*Determine Motor direction 0=Forward 1=Backwards*)
+
+	
+
+END_VAR]]></Declaration>
+  </GVL>
+</TcPlcObject>
