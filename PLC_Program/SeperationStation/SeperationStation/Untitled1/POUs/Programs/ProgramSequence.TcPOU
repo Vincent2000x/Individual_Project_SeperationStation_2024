@@ -4,6 +4,8 @@
     <Declaration><![CDATA[PROGRAM ProgramSequence
 VAR
 	X: INT;
+	Delay1 : TON;
+	Delay2 : TON;
 END_VAR
 ]]></Declaration>
     <Implementation>
@@ -11,61 +13,83 @@ END_VAR
 	X := 10;
 	GVL.Motor1_State := 0;
 	GVL.Motor2_State := 0;	
-END_IF
+	ELSIF X = 10 THEN
+	X := 0;	
+	END_IF
 
-	CASE X OF
-0: IF NOT GVL.Motor1_State THEN
- 	GVL.Motor1_State := 1;
-	X := 1;
-	END_IF
+CASE X OF
+	0: IF NOT GVL.Motor1_State THEN
+ 		GVL.Motor1_State := 1;
+		GVL.Motor2_State := 0;
+		GVL.Motor2_DirectionL := 0;
+		GVL.Motor2_DirectionR := 0;
+		X := 1;
+		END_IF
 	
-1: IF GVL.SensorInput = 1 THEN
-	GVL.Motor2_Direction := 0;
-	GVL.Motor2_State := 1;
-	GVL.ProductA_Amount := GVL.ProductA_Amount + 1;
-	X := 2;
-	ELSIF GVL.SensorInput = 2 THEN
-	GVL.Motor2_Direction := 1;
-	GVL.Motor2_State := 1;
-	X := 2;
-	GVL.ProductB_Amount := GVL.ProductB_Amount + 1;
-	END_IF
-	
-2: 	GVL.Motor1_State := 0;
-	IF GVL.Conveyor2_Free THEN
-	X := 0;
-	END_IF
-	END_CASE
+	1: 	IF GVL.SensorInput > 0 THEN
+			Delay1(IN:=TRUE, PT:=T#6S);
+			IF (Delay1.Q) THEN
+				IF GVL.SensorInput = 1 THEN
+   					GVL.Motor2_DirectionL := 1;
+					GVL.Motor2_State := 1;
+					GVL.ProductA_Amount := GVL.ProductA_Amount + 1;
+					X := 2;
+				ELSIF GVL.SensorInput = 2 THEN
+					GVL.Motor2_DirectionR := 1;
+					GVL.Motor2_State := 1;
+					GVL.ProductB_Amount := GVL.ProductB_Amount + 1;
+					X := 2;
+				END_IF
+			Delay1(IN:=FALSE);
+			END_IF
+		END_IF
+			
+	2: 	Delay2 (IN:=TRUE, PT:=T#2S);
+		IF (Delay2.Q) THEN
+			GVL.Motor1_State := 0;
+			IF GVL.Conveyor2_Free THEN
+				X := 0;
+				Delay2 (IN:=FALSE);
+			END_IF
+		END_IF
+END_CASE
 ]]></ST>
     </Implementation>
     <LineIds Name="ProgramSequence">
       <LineId Id="5" Count="0" />
       <LineId Id="78" Count="0" />
       <LineId Id="85" Count="1" />
-      <LineId Id="75" Count="0" />
+      <LineId Id="99" Count="0" />
+      <LineId Id="102" Count="1" />
       <LineId Id="83" Count="0" />
       <LineId Id="6" Count="0" />
       <LineId Id="38" Count="0" />
       <LineId Id="58" Count="0" />
+      <LineId Id="143" Count="0" />
+      <LineId Id="149" Count="1" />
       <LineId Id="63" Count="0" />
       <LineId Id="70" Count="0" />
       <LineId Id="89" Count="0" />
       <LineId Id="52" Count="0" />
-      <LineId Id="61" Count="0" />
-      <LineId Id="64" Count="0" />
-      <LineId Id="94" Count="0" />
-      <LineId Id="66" Count="0" />
-      <LineId Id="71" Count="0" />
-      <LineId Id="59" Count="0" />
-      <LineId Id="65" Count="0" />
-      <LineId Id="67" Count="0" />
-      <LineId Id="93" Count="0" />
-      <LineId Id="60" Count="0" />
-      <LineId Id="72" Count="0" />
+      <LineId Id="112" Count="1" />
+      <LineId Id="137" Count="0" />
+      <LineId Id="114" Count="0" />
+      <LineId Id="126" Count="1" />
+      <LineId Id="139" Count="0" />
+      <LineId Id="129" Count="3" />
+      <LineId Id="140" Count="0" />
+      <LineId Id="120" Count="0" />
+      <LineId Id="119" Count="0" />
+      <LineId Id="115" Count="0" />
+      <LineId Id="141" Count="1" />
       <LineId Id="54" Count="0" />
+      <LineId Id="146" Count="0" />
+      <LineId Id="145" Count="0" />
       <LineId Id="88" Count="0" />
       <LineId Id="92" Count="0" />
-      <LineId Id="91" Count="0" />
+      <LineId Id="148" Count="0" />
+      <LineId Id="106" Count="0" />
+      <LineId Id="147" Count="0" />
       <LineId Id="31" Count="0" />
       <LineId Id="48" Count="0" />
     </LineIds>

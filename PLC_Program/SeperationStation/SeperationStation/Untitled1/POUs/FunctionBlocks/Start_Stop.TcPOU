@@ -44,6 +44,7 @@ END_VAR
 	
 	IF X = 4 AND EM_STOP AND NOT START_STOP THEN
 		X := 0;
+		State := 0;
 	END_IF]]></ST>
     </Implementation>
     <LineIds Name="Start_Stop">
@@ -67,7 +68,9 @@ END_VAR
       <LineId Id="46" Count="0" />
       <LineId Id="68" Count="0" />
       <LineId Id="9" Count="0" />
-      <LineId Id="47" Count="3" />
+      <LineId Id="47" Count="2" />
+      <LineId Id="69" Count="0" />
+      <LineId Id="50" Count="0" />
     </LineIds>
   </POU>
 </TcPlcObject>

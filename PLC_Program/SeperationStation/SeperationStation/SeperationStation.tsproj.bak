@@ -10,15 +10,74 @@
 		</System>
 		<Plc>
 			<Project GUID="{11969E29-4FCF-4B32-AB37-97A4D190E843}" Name="Untitled1" PrjFilePath="Untitled1\Untitled1.plcproj" TmcFilePath="Untitled1\Untitled1.tmc" ReloadTmc="true" AmsPort="851" FileArchiveSettings="#x000e" SymbolicMapping="true">
-				<Instance Id="#x08502000" TcSmClass="TComPlcObjDef" KeepUnrestoredLinks="2">
+				<Instance Id="#x08502000" TcSmClass="TComPlcObjDef" KeepUnrestoredLinks="2" TmcHash="{C7D2F19B-763B-E335-BE18-8CFCF1722C29}">
 					<Name>Untitled1 Instance</Name>
 					<CLSID ClassFactory="TcPlc30">{08500001-0000-0000-F000-000000000064}</CLSID>
+					<Vars VarGrpType="1">
+						<Name>PlcTask Inputs</Name>
+						<Var>
+							<Name>GVL.SART_STOP</Name>
+							<Comment><![CDATA[To Start And To Stop System]]></Comment>
+							<Type>BIT</Type>
+						</Var>
+						<Var>
+							<Name>GVL.EM_STOP</Name>
+							<Comment><![CDATA[To Turn Power Of The System]]></Comment>
+							<Type>BIT</Type>
+						</Var>
+						<Var>
+							<Name>GVL.Conveyor2_Free</Name>
+							<Comment><![CDATA[When The Conveyor2 is free]]></Comment>
+							<Type>BIT</Type>
+						</Var>
+						<Var>
+							<Name>GVL.Reset_Count</Name>
+							<Comment><![CDATA[Reset the Product counter value]]></Comment>
+							<Type>BIT</Type>
+						</Var>
+						<Var>
+							<Name>GVL.SensorInput</Name>
+							<Comment><![CDATA[Noting=0 Red=1 Blue=2 Collor detection sensor]]></Comment>
+							<Type>INT</Type>
+						</Var>
+					</Vars>
+					<Vars VarGrpType="2" AreaNo="1">
+						<Name>PlcTask Outputs</Name>
+						<Var>
+							<Name>GVL.Motor1_State</Name>
+							<Comment><![CDATA[To indicate if the morot is on or of (1=on 0=of)]]></Comment>
+							<Type>BIT</Type>
+						</Var>
+						<Var>
+							<Name>GVL.Motor2_State</Name>
+							<Comment><![CDATA[To indicate if the morot is on or of (1=on 0=of)]]></Comment>
+							<Type>BIT</Type>
+						</Var>
+						<Var>
+							<Name>GVL.Motor1_Speed</Name>
+							<Comment><![CDATA[The Motor 1 Speed Output 0-65535]]></Comment>
+							<Type>DINT</Type>
+						</Var>
+						<Var>
+							<Name>GVL.Motor2_Speed</Name>
+							<Comment><![CDATA[The Motor 2 Speed Output 0-65535]]></Comment>
+							<Type>DINT</Type>
+						</Var>
+					</Vars>
 					<Contexts>
 						<Context>
-							<Id>1</Id>
-							<Name>Default</Name>
+							<Id NeedCalleeCall="true">0</Id>
+							<Name>PlcTask</Name>
+							<ManualConfig>
+								<OTCID>#x02010030</OTCID>
+							</ManualConfig>
+							<Priority>20</Priority>
+							<CycleTime>10000000</CycleTime>
 						</Context>
 					</Contexts>
+					<TaskPouOids>
+						<TaskPouOid Prio="20" OTCID="#x08502001"/>
+					</TaskPouOids>
 				</Instance>
 			</Project>
 		</Plc>

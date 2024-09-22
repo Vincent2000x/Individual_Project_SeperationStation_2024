@@ -31,7 +31,8 @@ VAR_GLOBAL
 	SetMotor2_Speed : INT; 				 (*Set The Motor Speed in the program from hmi km/h*)
 	CurrentMotor1_Speed : INT;			 (*The current speed after Trapizoidal function*)
 	CurrentMotor2_Speed : INT;			 (*The current speed after Trapizoidal function*)
-	Motor2_Direction : BOOL;			 (*Determine Motor direction 0=Forward 1=Backwards*)
+	Motor2_DirectionL : BOOL;			 (*Determine Motor direction*)
+	Motor2_DirectionR : BOOL;			 (*Determine Motor direct*)
 
 	
 
