@@ -8,8 +8,8 @@ END_VAR
 ]]></Declaration>
     <Implementation>
       <ST><![CDATA[IF GVL.Reset_Count THEN
-	GVL.ProductA_Amount := 0;
-	GVL.ProductB_Amount := 0;
+	GVL.ProductA_Amount := 0; (*To Reset Product Count*)
+	GVL.ProductB_Amount := 0; (*To Reset Product Count*)
 END_IF]]></ST>
     </Implementation>
     <LineIds Name="Reset">

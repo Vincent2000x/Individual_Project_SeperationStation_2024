@@ -3,13 +3,14 @@
   <POU Name="ProgramSequence" Id="{57073d3a-1ff5-4cda-8931-755335b396bf}" SpecialFunc="None">
     <Declaration><![CDATA[PROGRAM ProgramSequence
 VAR
-	X: INT;
+	X: INT;				(*to indicate in what state system is*)
 	Delay1 : TON;
 	Delay2 : TON;
 END_VAR
 ]]></Declaration>
     <Implementation>
-      <ST><![CDATA[IF NOT GVL.System_Start_Stop THEN
+      <ST><![CDATA[(*When the system is in Stop mode make sure the system gets out of the state*)
+IF NOT GVL.System_Start_Stop THEN
 	X := 10;
 	GVL.Motor1_State := 0;
 	GVL.Motor2_State := 0;	
@@ -17,7 +18,7 @@ END_VAR
 	X := 0;	
 	END_IF
 
-CASE X OF
+CASE X OF (*Start motor 1 and make sure directions and motor 2 is of*)
 	0: IF NOT GVL.Motor1_State THEN
  		GVL.Motor1_State := 1;
 		GVL.Motor2_State := 0;
@@ -26,7 +27,7 @@ CASE X OF
 		X := 1;
 		END_IF
 	
-	1: 	IF GVL.SensorInput > 0 THEN
+	1: 	IF GVL.SensorInput > 0 THEN (*Determines what direction the motor 2 must turn and what product count must go up*)
 			Delay1(IN:=TRUE, PT:=T#6S);
 			IF (Delay1.Q) THEN
 				IF GVL.SensorInput = 1 THEN
@@ -44,8 +45,8 @@ CASE X OF
 			END_IF
 		END_IF
 			
-	2: 	Delay2 (IN:=TRUE, PT:=T#2S);
-		IF (Delay2.Q) THEN
+	2: 	Delay2 (IN:=TRUE, PT:=T#2S); (*When conveyor 2 is emty reset the state*)
+		IF (Delay2.Q) THEN (*lets Conveyor 1 stay on for a litle longer*)
 			GVL.Motor1_State := 0;
 			IF GVL.Conveyor2_Free THEN
 				X := 0;
@@ -56,6 +57,7 @@ END_CASE
 ]]></ST>
     </Implementation>
     <LineIds Name="ProgramSequence">
+      <LineId Id="157" Count="0" />
       <LineId Id="5" Count="0" />
       <LineId Id="78" Count="0" />
       <LineId Id="85" Count="1" />
